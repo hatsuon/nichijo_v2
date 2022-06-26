@@ -1,4 +1,4 @@
-package org.cadmium.nichijo.controller;
+package org.cadmium.nichijo.controller.admin;
 
 import io.vavr.control.Try;
 import org.cadmium.nichijo.common.model.Packet;
