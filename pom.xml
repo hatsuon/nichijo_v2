@@ -11,8 +11,8 @@
 
   </parent>
   <groupId>org.cadmium</groupId>
-  <artifactId>nichijo</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>nichijo_v2</artifactId>
+  <version>0.0.1</version>
   <name>nichijo_v2</name>
   <description>nichijo_v2</description>
 
