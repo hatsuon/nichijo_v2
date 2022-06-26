@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: nichijo_v2
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mariadb://10.42.0.64:3306/db_nichijo_v2
+    username: root
+    password: ^H,DcSO9kl%
+
+  redis:
+    host: 10.42.0.64
+    port: 6379
+    database: 0
+
+logging:
+  level:
+    org.cadmium.nichijo.mapper: debug
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

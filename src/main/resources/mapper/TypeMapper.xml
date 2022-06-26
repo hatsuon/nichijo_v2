@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cadmium.nichijo.mapper.TypeMapper">
+
+  <resultMap id="basicMap" type="org.cadmium.nichijo.entity.Type">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="user_id" property="userId"/>
+    <result column="gmt_created" property="gmtCreated"/>
+    <result column="gmt_updated" property="gmtUpdated"/>
+  </resultMap>
+
+  <select id="selectByPrimary" parameterType="java.lang.Integer" resultMap="basicMap">
+    SELECT
+        `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
+    FROM
+        `t_type`
+    WHERE
+        `id` = #{id};
+  </select>
+
+  <select id="page" parameterType="java.lang.Integer" resultMap="basicMap">
+    SELECT
+      `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
+    FROM
+        t_type
+    ORDER BY `id` DESC
+    LIMIT #{offset}, #{count};
+  </select>
+
+  <delete id="deleteByPrimary" parameterType="java.lang.Integer">
+    DELETE FROM t_type WHERE id = #{id};
+  </delete>
+
+  <select id="selectByName" parameterType="java.lang.String" resultMap="basicMap">
+    SELECT
+      `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
+    FROM
+        t_type
+    WHERE name = #{name};
+  </select>
+
+  <update id="updateByPrimary" parameterType="org.cadmium.nichijo.entity.Type">
+    UPDATE t_type SET name = #{name} WHERE id = #{id};
+  </update>
+
+  <insert id="insertOne" parameterType="java.lang.String">
+    INSERT INTO t_type(`name`)
+    VALUE (#{name});
+  </insert>
+
+</mapper>
