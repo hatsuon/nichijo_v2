@@ -8,9 +8,10 @@ CREATE TABLE `t_user`
 (
     `id`          INTEGER AUTO_INCREMENT PRIMARY KEY,
     `type`        BOOLEAN      NOT NULL DEFAULT FALSE,
+    `cover`       VARCHAR(200) NOT NULL DEFAULT '',
     `username`    CHAR(10)     NOT NULL,
     `nickname`    CHAR(20)     NOT NULL,
-    `password`    CHAR(32)     NOT NULL DEFAULT '4a7d1ed414474e4033ac29ccb8653d9b',
+    `password`    CHAR(32)     NOT NULL DEFAULT 'd41d8cd98f00b204e9800998ecf8427e',
     `avatar`      VARCHAR(200) NOT NULL DEFAULT 'https://s1.328888.xyz/2022/05/04/hRyP3.jpg',
     `gmt_created` DATETIME     NOT NULL DEFAULT NOW(),
     `gmt_updated` DATETIME     NOT NULL DEFAULT NOW()

@@ -17,6 +17,7 @@ public class User extends BasicEntity {
 
     private Boolean type;
 
+    private String cover;
     private String avatar;
     private String username;
     private String nickname;

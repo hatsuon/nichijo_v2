@@ -8,6 +8,7 @@ import org.cadmium.nichijo.entity.User;
 import org.cadmium.nichijo.entity.dto.LoginDto;
 import org.cadmium.nichijo.mapper.UserMapper;
 import org.cadmium.nichijo.service.UserService;
+import org.cadmium.nichijo.utils.Md5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(LoginDto dto) {
-
-        User result = userMapper.selectByUsernameAndPassword(dto);
-        if (Objects.isNull(result)) {
-            return null;
-        }
-
-        redisTemplate.opsForValue()
-                .set(CACHE_USER + dto.getUsername(), gson.toJson(result), TYPE_TOTAL, TimeUnit.MILLISECONDS);
-        return result;
+        dto.setPassword(Md5Utils.encrypt(dto.getPassword()));
+        return userMapper.selectByUsernameAndPassword(dto);
     }
 
 }
