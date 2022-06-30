@@ -11,4 +11,4 @@ services:
       - "MYSQL_DATABASE=nichijo_v2"
       - "TZ=Asia/Shanghai"
     ports:
-      - 3306:3306
+      - "3306:3306"
