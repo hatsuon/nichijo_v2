@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
         String json = redisTemplate.opsForValue()
                 .get(CACHE_USER + Md5Utils.encrypt(dto.getUsername()));
-        if (StringUtils.isEmpty(json)) {
+        if (!StringUtils.isEmpty(json)) {
             return gson.fromJson(json, User.class);
         }
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
         String json = redisTemplate.opsForValue()
                 .get(CACHE_USER + suffix);
-        if (StringUtils.isEmpty(json)) {
+        if (!StringUtils.isEmpty(json)) {
             redisTemplate.delete(CACHE_USER + suffix);
         }
 

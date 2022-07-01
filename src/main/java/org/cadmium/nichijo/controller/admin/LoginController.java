@@ -27,7 +27,10 @@ public class LoginController {
 
 
     @GetMapping
-    public String login() {
+    public String login(HttpSession session) {
+        if (session.getAttribute("user") != null) {
+            return "admin/index";
+        }
         return WebPath.ADMIN_LOGIN;
     }
 
