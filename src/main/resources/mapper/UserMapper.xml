@@ -5,8 +5,9 @@
 <mapper namespace="org.cadmium.nichijo.mapper.UserMapper">
 
     <resultMap id="basicMap" type="org.cadmium.nichijo.entity.User">
-        <id column="id" property="id"/>
+        <id column="uid" property="uid"/>
         <result column="type" property="type"/>
+        <result column="cover" property="cover"/>
         <result column="avatar" property="avatar"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
@@ -14,7 +15,7 @@
 
     <select id="selectByUsernameAndPassword" parameterType="org.cadmium.nichijo.entity.dto.LoginDto" resultMap="basicMap">
         SELECT
-            `id`, `type`, `avatar`, `username`, `nickname`
+            `uid`, `type`, `avatar`, `username`, `nickname`, `cover`
         FROM
             t_user
         WHERE `username` = #{username} AND `password` = #{password};

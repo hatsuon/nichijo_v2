@@ -13,10 +13,10 @@ public class User extends BasicEntity {
     @Serial
     private static final long serialVersionUID = 7012525950948954722L;
 
-    private Integer id;
 
     private Boolean type;
 
+    private String uid;
     private String cover;
     private String avatar;
     private String username;

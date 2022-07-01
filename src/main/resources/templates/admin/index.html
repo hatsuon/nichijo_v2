@@ -43,6 +43,7 @@
       <h3 th:text="'Hi,' + ${session.user.nickname}">Hi, nickname</h3>
     </div>
 
+    <!--首页展示图片-->
     <img src="https://unsplash.it/1000/400?image=1005" th:src="${session.user.cover}" alt=""
          class="ui rounded bordered fluid image">
   </div>
