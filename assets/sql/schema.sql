@@ -8,7 +8,7 @@ CREATE TABLE `t_user`
 (
     `uid`         CHAR(32) PRIMARY KEY  DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `type`        BOOLEAN      NOT NULL DEFAULT FALSE,
-    `cover`       VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/Nt1hB.md.jpg',
+    `cover`       VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/N4iqY.jpg',
     `username`    CHAR(10)     NOT NULL,
     `nickname`    CHAR(20)     NOT NULL,
     `password`    CHAR(32)     NOT NULL DEFAULT 'd41d8cd98f00b204e9800998ecf8427e',
@@ -19,7 +19,7 @@ CREATE TABLE `t_user`
   CHARACTER SET utf8;
 
 INSERT INTO `t_user`(`username`, `nickname`, `type`)
-    VALUE ('root', 'root', TRUE);
+    VALUE ('root', 'Xiangkunxu', TRUE);
 
 
 DROP TABLE IF EXISTS `t_type`;
