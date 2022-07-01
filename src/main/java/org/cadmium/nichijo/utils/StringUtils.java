@@ -1,5 +1,7 @@
 package org.cadmium.nichijo.utils;
 
+import java.util.Objects;
+
 public abstract class StringUtils {
 
     private StringUtils() {
@@ -7,7 +9,7 @@ public abstract class StringUtils {
     }
 
     public static boolean isEmpty(String str) {
-        return str != null && !"null".equals(str) && !"".equals(str);
+        return Objects.isNull(str) || "null".equals(str) || "".equals(str);
     }
 
 }

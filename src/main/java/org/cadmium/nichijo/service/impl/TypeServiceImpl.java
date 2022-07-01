@@ -77,7 +77,7 @@ public class TypeServiceImpl implements TypeService {
 
         String json = redisTemplate.opsForValue()
             .get(CACHE_TYPE + id);
-        if (StringUtils.isEmpty(json)) {
+        if (!StringUtils.isEmpty(json)) {
             log.debug("Data from redis cache.");
             return gson.fromJson(json, Type.class);
         }
@@ -95,7 +95,7 @@ public class TypeServiceImpl implements TypeService {
     public PageInfo<Type> typePage(Integer pageNum) {
 
         String json = redisTemplate.opsForValue().get(CACHE_TYPE_PAGE + pageNum);
-        if (StringUtils.isEmpty(json)) {
+        if (!StringUtils.isEmpty(json)) {
             return gson.fromJson(json, new TypeToken<PageInfo<Type>>() {}.getType() );
         }
 

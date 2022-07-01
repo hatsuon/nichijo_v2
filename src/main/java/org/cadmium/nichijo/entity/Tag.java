@@ -14,6 +14,6 @@ public class Tag extends BasicEntity {
     private static final long serialVersionUID = -3470688086625110266L;
 
     private String name;
-    private Integer userId;
+    private String userId;
 
 }
