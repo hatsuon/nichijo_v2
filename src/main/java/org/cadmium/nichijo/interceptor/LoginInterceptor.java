@@ -1,5 +1,7 @@
 package org.cadmium.nichijo.interceptor;
 
+import org.cadmium.nichijo.entity.User;
+import org.cadmium.nichijo.utils.UserHandler;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,13 +14,18 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     
-        Object loginUser = request.getSession().getAttribute("user");
+        User loginUser = (User) request.getSession().getAttribute("user");
         if (Objects.isNull(loginUser)) {
             response.sendRedirect("/admin");
             return false;
         }
+    
+        UserHandler.set(loginUser);
         return true;
     }
     
-    
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        UserHandler.remove();
+    }
 }
