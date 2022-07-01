@@ -15,6 +15,7 @@ spring:
     host: 10.42.0.20
     port: 6379
     database: 0
+    password: ^H,DcSO9kl%
 
 logging:
   level:
