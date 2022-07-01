@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static org.cadmium.nichijo.common.constant.CacheTTL.TYPE_TOTAL;
@@ -50,7 +51,7 @@ public class TypeServiceImpl implements TypeService {
         Integer result = Try.of(() -> typeMapper.deleteByPrimary(id))
             .andThenTry(() -> redisTemplate.opsForValue().get(CACHE_TYPE + id))
             .andThen(ok -> redisTemplate.delete(CACHE_TYPE + id))
-            .andThen(ok -> log.debug("Clean Type Cache {} ", id))
+            .andThen(ok -> log.info("Clean type cache {} ", id))
             .get();
 
         assert result != null;
@@ -78,7 +79,7 @@ public class TypeServiceImpl implements TypeService {
         String json = redisTemplate.opsForValue()
             .get(CACHE_TYPE + id);
         if (!StringUtils.isEmpty(json)) {
-            log.debug("Data from redis cache.");
+            log.info("Data from redis cache {} ", new Date());
             return gson.fromJson(json, Type.class);
         }
 
@@ -96,6 +97,7 @@ public class TypeServiceImpl implements TypeService {
 
         String json = redisTemplate.opsForValue().get(CACHE_TYPE_PAGE + pageNum);
         if (!StringUtils.isEmpty(json)) {
+            log.info("Type page from cache {} ", new Date());
             return gson.fromJson(json, new TypeToken<PageInfo<Type>>() {}.getType() );
         }
 
