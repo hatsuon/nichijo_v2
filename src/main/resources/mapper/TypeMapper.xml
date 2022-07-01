@@ -30,6 +30,11 @@
     LIMIT #{offset}, #{count};
   </select>
 
+  <select id="list" resultMap="basicMap">
+    SELECT `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
+    FROM t_type ORDER BY gmt_updated
+  </select>
+
   <delete id="deleteByPrimary" parameterType="java.lang.Integer">
     DELETE FROM t_type WHERE id = #{id};
   </delete>

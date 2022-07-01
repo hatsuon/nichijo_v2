@@ -8,4 +8,6 @@ public interface UserService {
 
     User find(LoginDto dto);
 
+    void clean(String username);
+
 }

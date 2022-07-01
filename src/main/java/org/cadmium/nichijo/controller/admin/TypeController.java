@@ -1,18 +1,20 @@
 package org.cadmium.nichijo.controller.admin;
 
+import com.github.pagehelper.PageInfo;
 import io.vavr.control.Try;
 import org.cadmium.nichijo.common.model.Packet;
 import org.cadmium.nichijo.entity.Type;
 import org.cadmium.nichijo.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/type")
+@RequestMapping("/admin/types")
 public class TypeController {
 
     @Autowired
@@ -20,63 +22,51 @@ public class TypeController {
 
 
     @GetMapping
-    public Packet<List<Type>> page(@RequestParam("pageNum") Integer pageNum) {
-        List<Type> result = typeService.typePage(pageNum);
+    public String type(@RequestParam(defaultValue = "1") Integer pageNum, Model model) {
 
-        assert result != null;
-        return Packet.ok(result);
+        PageInfo<Type> result = typeService.typePage(pageNum);
+
+        if (result != null) {
+            model.addAttribute("page", result);
+        }
+        return "admin/types";
+    }
+
+    @GetMapping("/{id}/input")
+    public String getInfo(@PathVariable("id") Integer typeId, Model model) {
+        Type result = typeService.get(typeId);
+
+        if (result != null) {
+            model.addAttribute("type", result);
+        }
+
+        return "admin/types-input";
     }
 
 
-    @GetMapping("/{id}")
-    public Packet<Type> get(@PathVariable("id") Integer id) {
-
-        if (id == null) {
-            return Packet.fail();
-        }
-
-        Type result = typeService.get(id);
-
-        if (Objects.isNull(result)) {
-            return Packet.fail("Type not found!");
-        }
-        return Packet.ok(result);
-
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Integer typeId) {
+        int result = typeService.delete(typeId);
+        return "redirect:/admin/types";
     }
 
+    @GetMapping("/input")
+    public String input(Model model) {
+        model.addAttribute("type", new Type());
+        return "admin/types-input";
+    }
 
     @PostMapping
-    public Packet<Object> save(Type type) {
-
-        if (type == null) {
-            return Packet.fail();
-        }
-
-        Try.of(() -> typeService.save(type));
-        return Packet.ok();
+    public String save(Type type) {
+        typeService.save(type);
+        return "redirect:/admin/types";
     }
 
 
-    @PutMapping
-    public Packet<Object> update(Type type) {
-
-        if (type == null) {
-            return Packet.fail();
-        }
-
-        Try.of(() -> typeService.update(type));
-        return Packet.ok();
+    @PostMapping("/{id}")
+    public String editor(@PathVariable("id") Integer id, Type type) {
+        typeService.update(type);
+        return "redirect:/admin/types";
     }
 
-
-    @DeleteMapping("/{id}")
-    public Packet<Object> delete(@PathVariable("id") Integer id) {
-
-        if (id <= 0) {
-            return Packet.fail();
-        }
-
-        Try.of(() -> typeService.delete(id));
-        return Packet.ok();
-    }
 }

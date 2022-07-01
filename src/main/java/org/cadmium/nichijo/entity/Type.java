@@ -15,7 +15,7 @@ public class Type extends BasicEntity {
     @Serial
     private static final long serialVersionUID = -4116660032514567000L;
 
-    private Integer userId;
+    private String userId;
     private String name;
 
 }

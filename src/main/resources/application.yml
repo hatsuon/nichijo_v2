@@ -12,7 +12,7 @@ spring:
     password: ^H,DcSO9kl%
 
   redis:
-    host: 10.42.0.23
+    host: 10.42.0.20
     port: 6379
     database: 0
 
@@ -24,3 +24,9 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

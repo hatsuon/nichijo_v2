@@ -11,6 +11,7 @@ public interface TypeMapper {
 
     int total();
 
+    List<Type> list();
     int insertOne(@Param("name") String name);
 
     int updateByPrimary(Type type);

@@ -27,7 +27,7 @@ CREATE TABLE `t_type`
 (
     `id`          INTEGER PRIMARY KEY AUTO_INCREMENT,
     `name`        CHAR(10) NOT NULL,
-    `user_id`     CHAR(32) NOT NULL,
+    `user_id`     CHAR(32) NOT NULL DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `gmt_created` DATETIME NOT NULL DEFAULT NOW(),
     `gmt_updated` DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY fk_user_type (user_id) REFERENCES t_user (uid)
@@ -39,7 +39,7 @@ CREATE TABLE `t_tag`
 (
     `id`          INTEGER PRIMARY KEY AUTO_INCREMENT,
     `name`        CHAR(10) NOT NULL,
-    `user_id`     CHAR(32) NOT NULL,
+    `user_id`     CHAR(32) NOT NULL DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `gmt_created` DATETIME NOT NULL DEFAULT NOW(),
     `gmt_updated` DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY fk_user_tag (user_id) REFERENCES t_user (uid)
@@ -54,7 +54,7 @@ CREATE TABLE `t_article`
     `content`     TEXT,
     `title`       VARCHAR(200) NOT NULL UNIQUE,
     `type_id`     INTEGER      NOT NULL,
-    `user_id`     CHAR(32)     NOT NULL,
+    `user_id`     CHAR(32)     NOT NULL DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `is_draft`    BOOLEAN      NOT NULL DEFAULT TRUE,
     `reading`     INTEGER      NOT NULL DEFAULT 0,
     `gmt_created` DATETIME     NOT NULL DEFAULT NOW(),

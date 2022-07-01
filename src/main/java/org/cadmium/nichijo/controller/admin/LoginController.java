@@ -6,6 +6,7 @@ import org.cadmium.nichijo.common.constant.WebPath;
 import org.cadmium.nichijo.entity.User;
 import org.cadmium.nichijo.entity.dto.LoginDto;
 import org.cadmium.nichijo.service.UserService;
+import org.cadmium.nichijo.utils.Md5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,9 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
+        User user = (User) session.getAttribute("user");
         session.removeAttribute("user");
+        userService.clean(user.getUsername());
         return "redirect:/admin";
     }
 
