@@ -34,6 +34,23 @@ CREATE TABLE `t_type`
 ) ENGINE = InnoDB
   CHARACTER SET utf8;
 
+INSERT INTO `t_type`(`name`) VALUE ('Java');
+INSERT INTO `t_type`(`name`) VALUE ('Docker');
+INSERT INTO `t_type`(`name`) VALUE ('HTML');
+INSERT INTO `t_type`(`name`) VALUE ('CSS');
+INSERT INTO `t_type`(`name`) VALUE ('Python');
+INSERT INTO `t_type`(`name`) VALUE ('Linux');
+INSERT INTO `t_type`(`name`) VALUE ('Redis');
+INSERT INTO `t_type`(`name`) VALUE ('MySQL');
+INSERT INTO `t_type`(`name`) VALUE ('Go');
+INSERT INTO `t_type`(`name`) VALUE ('jQuery');
+INSERT INTO `t_type`(`name`) VALUE ('JavaScript');
+INSERT INTO `t_type`(`name`) VALUE ('MariaDB');
+INSERT INTO `t_type`(`name`) VALUE ('Json');
+INSERT INTO `t_type`(`name`) VALUE ('Lua');
+INSERT INTO `t_type`(`name`) VALUE ('Maven');
+
+
 DROP TABLE IF EXISTS `t_tag`;
 CREATE TABLE `t_tag`
 (

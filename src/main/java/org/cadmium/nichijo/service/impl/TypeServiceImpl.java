@@ -63,7 +63,7 @@ public class TypeServiceImpl implements TypeService {
 
         Integer result = Try.of(() -> typeMapper.updateByPrimary(type))
             .andThenTry(() -> redisTemplate.opsForValue()
-                .get(CACHE_TYPE + type.getId()))
+            .get(CACHE_TYPE + type.getId()))
             .andThen(ok -> redisTemplate.delete(CACHE_TYPE + type.getId()))
             .andThen(this::clean).get();
 
