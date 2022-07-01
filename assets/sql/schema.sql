@@ -63,6 +63,18 @@ CREATE TABLE `t_tag`
 ) ENGINE = InnoDB
   CHARACTER SET utf8;
 
+INSERT INTO `t_tag`(`name`) VALUE ('alloy');
+INSERT INTO `t_tag`(`name`) VALUE ('fair');
+INSERT INTO `t_tag`(`name`) VALUE ('punish');
+INSERT INTO `t_tag`(`name`) VALUE ('spectator');
+INSERT INTO `t_tag`(`name`) VALUE ('frightened');
+INSERT INTO `t_tag`(`name`) VALUE ('standards');
+INSERT INTO `t_tag`(`name`) VALUE ('category');
+INSERT INTO `t_tag`(`name`) VALUE ('cruel');
+INSERT INTO `t_tag`(`name`) VALUE ('reward');
+INSERT INTO `t_tag`(`name`) VALUE ('nerves');
+
+
 DROP TABLE IF EXISTS `t_article`;
 CREATE TABLE `t_article`
 (
