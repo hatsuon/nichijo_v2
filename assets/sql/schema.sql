@@ -9,8 +9,8 @@ CREATE TABLE `t_user`
     `uid`         CHAR(32) PRIMARY KEY  DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `type`        BOOLEAN      NOT NULL DEFAULT FALSE,
     `cover`       VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/N4iqY.jpg',
-    `username`    CHAR(10)     NOT NULL,
-    `nickname`    CHAR(20)     NOT NULL,
+    `username`    CHAR(10)     NOT NULL UNIQUE ,
+    `nickname`    CHAR(20)     NOT NULL UNIQUE ,
     `password`    CHAR(32)     NOT NULL DEFAULT 'd41d8cd98f00b204e9800998ecf8427e',
     `avatar`      VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/NthEl.th.jpg',
     `gmt_created` DATETIME     NOT NULL DEFAULT NOW(),
@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `t_type`;
 CREATE TABLE `t_type`
 (
     `id`          INTEGER PRIMARY KEY AUTO_INCREMENT,
-    `name`        CHAR(10) NOT NULL,
+    `name`        CHAR(10) NOT NULL UNIQUE ,
     `user_id`     CHAR(32) NOT NULL DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `gmt_created` DATETIME NOT NULL DEFAULT NOW(),
     `gmt_updated` DATETIME NOT NULL DEFAULT NOW(),
@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `t_tag`;
 CREATE TABLE `t_tag`
 (
     `id`          INTEGER PRIMARY KEY AUTO_INCREMENT,
-    `name`        CHAR(10) NOT NULL,
+    `name`        CHAR(10) NOT NULL UNIQUE ,
     `user_id`     CHAR(32) NOT NULL DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `gmt_created` DATETIME NOT NULL DEFAULT NOW(),
     `gmt_updated` DATETIME NOT NULL DEFAULT NOW(),
