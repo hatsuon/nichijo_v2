@@ -44,9 +44,7 @@ public class LoginController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        User user = (User) session.getAttribute("user");
         session.removeAttribute("user");
-        userService.clean(user.getUsername());
         return "redirect:/admin";
     }
 
