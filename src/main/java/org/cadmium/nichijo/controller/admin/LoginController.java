@@ -41,7 +41,7 @@ public class LoginController {
         return "/admin/index";
     }
 
-    @GetMapping
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
         return "redirect:/admin";
