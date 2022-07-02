@@ -16,21 +16,58 @@
 
 package org.cadmium.nichijo.controller.admin;
 
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.cadmium.nichijo.entity.Article;
+import org.cadmium.nichijo.entity.Type;
+import org.cadmium.nichijo.service.ArticleService;
 import org.cadmium.nichijo.service.TagService;
 import org.cadmium.nichijo.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/admin/articles")
 public class ArticleController {
     
+    private final String ADMIN_ARTICLES = "/admin/articles";
+    
     @Autowired
     private TagService tagService;
     @Autowired
     private TypeService typeService;
+    @Autowired
+    private ArticleService articleService;
     
+    
+    @GetMapping
+    public String articles(@RequestParam(defaultValue = "1") Integer pageNum, Article article, Model model) {
+    
+        List<Type> result = typeService.list();
+        if (result != null) {
+            model.addAttribute("types", result);
+        }
+    
+        PageInfo<Article> resultArticle = articleService.articlePage(pageNum);
+        if (resultArticle != null) {
+            model.addAttribute("page", resultArticle);
+        }
+        
+        return ADMIN_ARTICLES;
+    }
+    
+    
+    @PostMapping("/search")
+    public String search(@RequestParam(defaultValue = "1") Integer pageNum, Article article, Model model) {
+    
+        return null;
+    }
 }

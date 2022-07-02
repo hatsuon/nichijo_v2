@@ -36,14 +36,17 @@ public abstract class BasicService {
             .set(key, gson.toJson(value), ttl, TimeUnit.MILLISECONDS);
     }
 
+    
     public void clean(String keys) {
         Try.of(() -> redisTemplate.keys(keys))
             .andThen(r -> redisTemplate.delete(r));
     }
+    
 
     public <E> String toJson(E obj) {
         return gson.toJson(obj);
     }
+    
 
     public <E> E fromJson(String json, Class<E> classOf) {
         return gson.fromJson(json, classOf);

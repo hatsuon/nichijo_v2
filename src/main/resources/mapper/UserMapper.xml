@@ -16,25 +16,29 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.cadmium.nichijo.mapper.UserMapper">
 
-    <resultMap id="basicMap" type="org.cadmium.nichijo.entity.User">
-        <id column="uid" property="uid"/>
-        <result column="type" property="type"/>
-        <result column="cover" property="cover"/>
-        <result column="avatar" property="avatar"/>
-        <result column="username" property="username"/>
-        <result column="nickname" property="nickname"/>
-    </resultMap>
+  <resultMap id="basicMap" type="org.cadmium.nichijo.entity.User">
+    <id column="uid" property="uid"/>
+    <result column="type" property="type"/>
+    <result column="cover" property="cover"/>
+    <result column="avatar" property="avatar"/>
+    <result column="username" property="username"/>
+    <result column="nickname" property="nickname"/>
+  </resultMap>
 
-    <select id="selectByUsernameAndPassword" parameterType="org.cadmium.nichijo.entity.dto.LoginDto" resultMap="basicMap">
-        SELECT
-            `uid`, `type`, `avatar`, `username`, `nickname`, `cover`
-        FROM
-            t_user
-        WHERE `username` = #{username} AND `password` = #{password};
-    </select>
+  <select id="selectByUsernameAndPassword" parameterType="org.cadmium.nichijo.entity.dto.LoginDto" resultMap="basicMap">
+    SELECT `uid`,
+           `type`,
+           `avatar`,
+           `username`,
+           `nickname`,
+           `cover`
+    FROM t_user
+    WHERE `username` = #{username}
+      AND `password` = #{password};
+  </select>
 
 </mapper>

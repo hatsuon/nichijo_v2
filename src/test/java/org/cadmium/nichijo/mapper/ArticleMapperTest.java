@@ -16,25 +16,30 @@
 
 package org.cadmium.nichijo.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.cadmium.nichijo.entity.Article;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@Mapper
-public interface ArticleMapper {
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class ArticleMapperTest {
     
-    List<Article> list();
+    @Autowired
+    private ArticleMapper articleMapper;
     
-    int insertOne(Article article);
+    @Test
+    void testArticleSearch() {
+        Article article = new Article();
+        article.setTitle("网");
     
-    int updateOne(Article article);
-    
-    int deleteByPrimary(Integer id);
-    
-    List<Article> listPick(Article article);
-    
-    Article selectByPrimary(@Param("id") Integer id);
+        List<Article> result = articleMapper.listPick(article);
+        
+        assert result != null;
+        System.out.println(result);
+    }
     
 }

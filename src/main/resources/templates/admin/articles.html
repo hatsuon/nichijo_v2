@@ -111,16 +111,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="blog,iterStat : ${page.list}">
+        <tr th:each="article,iterStat : ${page.list}">
           <td th:text="${iterStat.count}">1</td>
-          <td th:text="${blog.title}">刻意练习清单</td>
-          <td th:text="${blog.typeName}">认知升级</td>
-          <td th:text="${blog.isRecommend} ? '是':'否'">是</td>
-          <td th:text="${blog.isDraft} ? '发布':'草稿'">草稿</td>
-          <td th:text="${blog.gmtUpdated}">2017-10-02 09:45</td>
+          <td th:text="${article.title}">刻意练习清单</td>
+          <td th:text="${article.typeName}">认知升级</td>
+          <td th:text="${article.isRecommend} ? '是':'否'">是</td>
+          <td th:text="${article.isDraft} ? '发布':'草稿'">草稿</td>
+          <td th:text="${article.gmtUpdated}">2017-10-02 09:45</td>
           <td>
-            <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
-            <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>
+            <a href="#" th:href="@{/admin/blogs/{id}/input(id=${article.id})}" class="ui mini teal basic button">编辑</a>
+            <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${article.id})}" class="ui mini red basic button">删除</a>
           </td>
         </tr>
         </tbody>
@@ -128,12 +128,13 @@
         <tr>
           <th colspan="7">
             <div class="ui mini pagination menu" th:if="${page.total} > 1">
-              <a th:href="@{/admin/blogs(pageNum=${page.hasPreviousPage} ? ${page.prePage} : 1)}" class="item"
-                 th:unless="${page.isFirstPage}">上一页</a>
-              <a th:href="@{/admin/blogs(pageNum=${page.hasNextPage} ? ${page.nextPage}: ${page.pages})}" class=" item"
-                 th:unless="${page.isLastPage}">下一页</a>
+              <a th:href="@{/admin/articles(pageNum=${page.hasPreviousPage} ? ${page.prePage} : 1)}" class="item"
+                 th:if="${page.hasPreviousPage}">上一页</a>
+              <a th:href="@{/admin/articles(pageNum=${page.hasNextPage} ? ${page.nextPage} : ${page.pages})}"
+                 class="item"
+                 th:if="${page.hasNextPage}">下一页</a>
             </div>
-            <a href="#" th:href="@{/admin/blogs/input}" class="ui mini right floated teal basic button">新增</a>
+            <a href="#" th:href="@{/admin/article/input}" class="ui mini right floated teal basic button">新增</a>
           </th>
         </tr>
         </tfoot>
@@ -190,8 +191,7 @@
             $('.ui.type.dropdown')
                 .dropdown('clear')
             ;
-        })
-    ;
+        });
 
     function page(obj) {
         $("[name='page']").val($(obj).data("page"));
@@ -204,7 +204,7 @@
     });
 
     function loaddata() {
-        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+        $("#table-container").load(/*[[@{/admin/articles/search}]]*/"/admin/articles/search", {
             title: $("[name='title']").val(),
             typeId: $("[name='typeId']").val(),
             recommend: $("[name='recommend']").prop('checked'),

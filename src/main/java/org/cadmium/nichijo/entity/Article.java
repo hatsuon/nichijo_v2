@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 import org.cadmium.nichijo.common.model.BasicEntity;
 
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -29,9 +31,10 @@ public class Article extends BasicEntity {
     @Serial
     private static final long serialVersionUID = 7100746899756920233L;
     
-    private String tags;
+    private String cover;
     private String title;
     private String userId;
+    private String tagIds;
     private String content;
     private String typeName;
     private String description;
@@ -41,7 +44,10 @@ public class Article extends BasicEntity {
     
     private Boolean isDraft;
     private Boolean isPublic;
-    private Boolean isRemarks;
     private Boolean isComment;
+    private Boolean isTransport;
+    private Boolean isRecommend;
+    
+    List<Tag> tags = new ArrayList<>();
     
 }

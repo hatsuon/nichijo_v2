@@ -31,7 +31,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.cadmium.nichijo.common.constant.CacheTTL.TTL;
@@ -66,6 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
         log.info("Article cache to redis {}", new Date());
         return result;
     }
+    
     
     @Override
     public int save(Article article) {
@@ -115,7 +115,7 @@ public class ArticleServiceImpl implements ArticleService {
     
         log.info("Article page cache to redis {}", new Date());
         redisTemplate.opsForValue()
-            .set(CACHE_TAG_PAGE + pageNum, json, TTL, TimeUnit.MILLISECONDS);
+            .set(CACHE_ARTICLE_PAGE + pageNum, json, TTL, TimeUnit.MILLISECONDS);
         return result;
     }
     

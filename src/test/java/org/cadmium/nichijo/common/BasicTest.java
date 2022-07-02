@@ -14,27 +14,17 @@
  * limitations under the License.
  */
 
-package org.cadmium.nichijo.mapper;
+package org.cadmium.nichijo.common;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.cadmium.nichijo.entity.Article;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-@Mapper
-public interface ArticleMapper {
+public class BasicTest {
     
-    List<Article> list();
+    @Autowired
+    private Gson gson;
     
-    int insertOne(Article article);
-    
-    int updateOne(Article article);
-    
-    int deleteByPrimary(Integer id);
-    
-    List<Article> listPick(Article article);
-    
-    Article selectByPrimary(@Param("id") Integer id);
-    
+    public Gson getGson() {
+        return gson;
+    }
 }

@@ -16,24 +16,65 @@
   -->
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.cadmium.nichijo.mapper.ArticleMapper">
 
   <resultMap id="basicMap" type="org.cadmium.nichijo.entity.Article">
     <id column="id" property="id"/>
-    <result column="tags" property="tags"/>
+    <result column="tag_ids" property="tagIds"/>
     <result column="title" property="title"/>
     <result column="user_id" property="userId"/>
+    <result column="reading" property="reading"/>
     <result column="content" property="content"/>
     <result column="type_name" property="typeName"/>
     <result column="is_draft" property="isDraft"/>
     <result column="is_public" property="isPublic"/>
-    <result column="is_remarks" property="isRemarks"/>
+    <result column="is_comment" property="isComment"/>
+    <result column="is_transport" property="isTransport"/>
+    <result column="gmt_created" property="gmtCreated"/>
+    <result column="gmt_updated" property="gmtUpdated"/>
+    <result column="description" property="description"/>
+  </resultMap>
+
+  <resultMap id="listMap" type="org.cadmium.nichijo.entity.Article">
+    <id column="id" property="id"/>
+    <result column="title" property="title"/>
+    <result column="is_draft" property="isDraft"/>
+    <result column="type_name" property="typeName"/>
+    <result column="gmt_updated" property="gmtUpdated"/>
     <result column="is_recommend" property="isRecommend"/>
   </resultMap>
 
-  <select id="list" resultType="org.cadmium.nichijo.entity.Article">
-
+  <select id="list" resultMap="listMap">
+    SELECT ta.id           AS id,
+           ta.title        AS title,
+           ta.is_draft     AS is_draft,
+           ta.is_recommend AS is_recommend,
+           ta.gmt_updated  AS gmt_updated,
+           tt.name         AS type_name
+    FROM t_article ta
+           LEFT JOIN t_type AS tt
+                     ON ta.type_id = tt.id
+    ORDER BY ta.gmt_updated DESC
   </select>
+
+  <select id="listPick" resultMap="listMap" parameterType="org.cadmium.nichijo.entity.Article">
+    SELECT ta.id    AS id,
+    ta.title        AS title,
+    ta.is_draft     AS is_draft,
+    ta.is_recommend AS is_recommended,
+    ta.gmt_updated  AS gmt_updated,
+    tt.name         AS type_name
+    FROM t_article ta
+    LEFT JOIN t_type AS tt
+    ON ta.type_id = tt.id
+    <where>
+      <if test="title != null">ta.title LIKE CONCAT('%', #{title}, '%')</if>
+      <if test="typeId != null">AND tt.type_id = #{typeId}</if>
+      <if test="isRecommend != null">AND ta.is_recommend = #{isRecommend}</if>
+    </where>
+    ORDER BY ta.gmt_updated DESC
+  </select>
+
 </mapper>

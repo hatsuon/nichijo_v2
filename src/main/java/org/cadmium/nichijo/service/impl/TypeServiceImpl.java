@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
+import org.cadmium.nichijo.entity.Article;
 import org.cadmium.nichijo.entity.Type;
 import org.cadmium.nichijo.mapper.TypeMapper;
 import org.cadmium.nichijo.service.TypeService;
@@ -128,6 +129,11 @@ public class TypeServiceImpl implements TypeService {
                 .set(CACHE_TYPE_PAGE + pageNum, json, TYPE_TOTAL, TimeUnit.MILLISECONDS);
 
         return result;
+    }
+    
+    @Override
+    public PageInfo<Type> typePage(Integer pageNum, Article article) {
+        return null;
     }
     
     

@@ -17,6 +17,7 @@
 package org.cadmium.nichijo.service;
 
 import com.github.pagehelper.PageInfo;
+import org.cadmium.nichijo.entity.Article;
 import org.cadmium.nichijo.entity.Type;
 
 import java.util.List;
@@ -35,8 +36,10 @@ public interface TypeService {
 
     Type get(Integer id);
     
+    boolean isExist(String typeName);
+    
     PageInfo<Type> typePage(Integer pageNum);
     
-    boolean isExist(String typeName);
+    PageInfo<Type> typePage(Integer pageNum, Article article);
     
 }
