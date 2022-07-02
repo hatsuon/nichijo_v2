@@ -22,9 +22,11 @@ import org.cadmium.nichijo.common.model.Packet;
 import org.cadmium.nichijo.entity.Type;
 import org.cadmium.nichijo.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Objects;
@@ -73,15 +75,44 @@ public class TypeController {
     }
 
     @PostMapping
-    public String save(Type type) {
-        typeService.save(type);
+    public String save(Type type, RedirectAttributes attributes) {
+        
+        if (type == null) {
+            attributes.addFlashAttribute("message", "输入不能为空😠!");
+        }
+    
+        if (!typeService.isExist(type.getName())) {
+            if (typeService.save(type) > 0) {
+                attributes.addFlashAttribute("message", "添加成功😄!");
+            } else {
+                attributes.addFlashAttribute("message", "添加失败😞!");
+            }
+        } else {
+            attributes.addFlashAttribute("message", "项目已经存在😓!");
+        }
+    
+    
         return "redirect:/admin/types";
     }
 
 
     @PostMapping("/{id}")
-    public String editor(@PathVariable("id") Integer id, Type type) {
-        typeService.update(type);
+    public String editor(@PathVariable("id") Integer id, Type type, RedirectAttributes attributes) {
+        if (type == null) {
+            attributes.addFlashAttribute("message", "输入不能为空😠!");
+        }
+    
+        if (!typeService.isExist(type.getName())) {
+            if (typeService.update(type) > 0) {
+                attributes.addFlashAttribute("message", "添加成功😄!");
+            } else {
+                attributes.addFlashAttribute("message", "添加失败😞!");
+            }
+        } else {
+            attributes.addFlashAttribute("message", "项目已经存在😓!");
+        }
+        
+        
         return "redirect:/admin/types";
     }
 

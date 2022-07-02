@@ -30,4 +30,13 @@ class TagServiceImplTest {
         assert result != null;
         System.out.println(result);
     }
+    
+    
+    @Test
+    void testExist() {
+        boolean result = tagService.isExist("reward");
+        
+        assert result;
+        System.out.println(result);
+    }
 }

@@ -54,21 +54,67 @@ public class TagController {
     
     
     @PostMapping
-    public String save(Tag tag) {
-        tagService.save(tag);
-        return "admin/tags";
+    public String save(Tag tag, RedirectAttributes attributes) {
+        if (tag == null) {
+            attributes.addFlashAttribute("message", "输入不能为空😠!");
+            return "admin/tags";
+        }
+        
+        if (!tagService.isExist(tag.getName())) {
+            if (tagService.save(tag) > 0) {
+                attributes.addFlashAttribute("message", "添加成功😄!");
+            } else {
+                attributes.addFlashAttribute("message", "添加失败😞!");
+            }
+        } else {
+            attributes.addFlashAttribute("message", "项目已经存在😓!");
+        }
+        return "redirect:/admin/tags";
     }
     
     
-    @GetMapping("/{id}/input")
-    public String editor(@PathVariable("id") Integer id, Model model) {
+    @PostMapping("/{id}")
+    public String editor(@PathVariable("id") Integer id, Tag tag, RedirectAttributes attributes) {
+    
+        if (tag == null) {
+            attributes.addFlashAttribute("message", "输入不能为空😠!");
+            return "redirect:/admin/tags";
+        }
+        
+        if (!tagService.isExist(tag.getName())) {
+            if (tagService.update(tag) > 0) {
+                attributes.addFlashAttribute("message", "添加成功😄!");
+            } else {
+                attributes.addFlashAttribute("message", "添加失败😞!");
+            }
+        } else {
+            attributes.addFlashAttribute("message", "项目已经存在😓!");
+        }
+        
+        return "redirect:/admin/tags";
+    }
+    
+    
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Integer id, RedirectAttributes attributes) {
+        if (tagService.delete(id) > 0) {
+            attributes.addFlashAttribute("message", "删除成功!");
+        }
+        return "redirect:/admin/tags";
+    }
+    
+    
+    @GetMapping("{id}/input")
+    public String getInfo(@PathVariable("id") Integer id, Model model, RedirectAttributes attributes) {
     
         Tag result = tagService.get(id);
         if (result != null) {
             model.addAttribute("tag", result);
+        } else {
+            attributes.addFlashAttribute("message", "Tag标签不存在!");
         }
-        return "admin/tags-input";
     
+        return "admin/tags-input";
     }
     
 }

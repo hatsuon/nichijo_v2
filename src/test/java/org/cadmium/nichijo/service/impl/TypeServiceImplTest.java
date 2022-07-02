@@ -26,4 +26,12 @@ class TypeServiceImplTest {
         assert result != null;
         System.out.println(gson.toJson(result));
     }
+    
+    
+    @Test
+    void testExist() {
+        boolean result = typeService.isExist("Java");
+        System.out.println(result);
+    }
+    
 }

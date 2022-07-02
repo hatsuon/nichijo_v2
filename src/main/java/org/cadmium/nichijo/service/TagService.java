@@ -21,13 +21,14 @@ import org.cadmium.nichijo.entity.Tag;
 
 public interface TagService {
     
+    boolean isExist(String tagName);
     Tag get(Integer id);
 
-    boolean save(Tag tag);
+    int save(Tag tag);
 
-    boolean update(Tag tag);
+    int update(Tag tag);
 
-    boolean delete(Integer id);
+    int delete(Integer id);
 
     PageInfo<Tag> tagPage(Integer pageNum);
 

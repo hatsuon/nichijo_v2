@@ -8,11 +8,11 @@ CREATE TABLE `t_user`
 (
     `uid`         CHAR(32) PRIMARY KEY  DEFAULT '63a9f0ea7bb98050796b649e85481845',
     `type`        BOOLEAN      NOT NULL DEFAULT FALSE,
-    `cover`       VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/N4iqY.jpg',
+    `cover`       VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/NDBBD.jpg',
     `username`    CHAR(10)     NOT NULL UNIQUE ,
     `nickname`    CHAR(20)     NOT NULL UNIQUE ,
     `password`    CHAR(32)     NOT NULL DEFAULT 'd41d8cd98f00b204e9800998ecf8427e',
-    `avatar`      VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/NthEl.th.jpg',
+    `avatar`      VARCHAR(200) NOT NULL DEFAULT 'https://i.imgtg.com/2022/07/01/N4EpK.jpg',
     `gmt_created` DATETIME     NOT NULL DEFAULT NOW(),
     `gmt_updated` DATETIME     NOT NULL DEFAULT NOW()
 ) ENGINE = InnoDB

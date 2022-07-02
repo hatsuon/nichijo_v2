@@ -39,4 +39,22 @@
     FROM t_tag
   </select>
 
+  <select id="selectByName" resultMap="basicMap" parameterType="java.lang.String">
+    SELECT `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
+    FROM t_tag WHERE `name` = #{name};
+  </select>
+  
+  <insert id="insertOne" parameterType="org.cadmium.nichijo.entity.Tag">
+    INSERT INTO `t_tag`(`name`) VALUE (#{name});
+  </insert>
+
+  <update id="updateByPrimary" parameterType="org.cadmium.nichijo.entity.Tag">
+    UPDATE t_tag SET `name` = #{name}, `gmt_updated` = NOW()
+    WHERE `id` = #{id};
+  </update>
+
+  <delete id="deleteByPrimary" parameterType="java.lang.Integer">
+    DELETE FROM t_tag WHERE `id` = #{id};
+  </delete>
+
 </mapper>

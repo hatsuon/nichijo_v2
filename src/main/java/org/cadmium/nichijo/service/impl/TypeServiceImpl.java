@@ -126,8 +126,13 @@ public class TypeServiceImpl implements TypeService {
 
         return result;
     }
-
-
+    
+    @Override
+    public boolean isExist(String typeName) {
+        return typeMapper.selectByName(typeName) != null;
+    }
+    
+    
     private void clean() {
         Try.of(() -> redisTemplate.keys(CACHE_TYPE_PAGE + "*"))
             .andThen(r -> redisTemplate.delete(r));

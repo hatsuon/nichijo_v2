@@ -53,6 +53,11 @@ public class TagServiceImpl implements TagService {
     
     
     @Override
+    public boolean isExist(String tagName) {
+        return tagMapper.selectByName(tagName) != null;
+    }
+    
+    @Override
     public Tag get(Integer id) {
     
         String json = redisTemplate.opsForValue().get(CACHE_TAG + id);
@@ -71,33 +76,33 @@ public class TagServiceImpl implements TagService {
     }
     
     @Override
-    public boolean save(Tag tag) {
+    public int save(Tag tag) {
         Integer result = Try.of(() -> tagMapper.insertOne(tag))
             .andThen(this::clean)
             .get();
-        return result > 0;
+        return result;
     }
     
     
     @Override
-    public boolean update(Tag tag) {
+    public int update(Tag tag) {
         Integer result = Try.of(() -> tagMapper.updateByPrimary(tag))
             .andThen(this::clean)
             .andThen(r -> redisTemplate.opsForValue().get(CACHE_TAG + tag.getId()))
             .andThen(r -> redisTemplate.delete(CACHE_TAG + tag.getId()))
             .get();
-        return result > 0;
+        return result;
     }
     
     
     @Override
-    public boolean delete(Integer id) {
+    public int delete(Integer id) {
         Integer result = Try.of(() -> tagMapper.deleteByPrimary(id))
             .andThen(this::clean)
             .andThen(r -> redisTemplate.opsForValue().get(CACHE_TAG + id))
             .andThen(r -> redisTemplate.delete(CACHE_TAG + id))
             .get();
-        return result > 0;
+        return result;
     }
     
     @Override

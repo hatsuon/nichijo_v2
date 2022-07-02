@@ -32,5 +32,7 @@ public interface TypeService {
 
     Type get(Integer id);
     PageInfo<Type> typePage(Integer pageNum);
+    
+    boolean isExist(String typeName);
 
 }
