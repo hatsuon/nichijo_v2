@@ -42,13 +42,13 @@
       `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
     FROM
         t_type
-    ORDER BY `id` DESC
+    ORDER BY `gmt_updated` DESC
     LIMIT #{offset}, #{count};
   </select>
 
   <select id="list" resultMap="basicMap">
     SELECT `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
-    FROM t_type ORDER BY gmt_updated
+    FROM t_type ORDER BY gmt_updated DESC
   </select>
 
   <delete id="deleteByPrimary" parameterType="java.lang.Integer">

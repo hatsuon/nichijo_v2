@@ -36,7 +36,7 @@
 
   <select id="list" resultMap="basicMap">
     SELECT `id`, `user_id`, `name`, `gmt_created`, `gmt_updated`
-    FROM t_tag
+    FROM t_tag ORDER BY `gmt_updated` DESC
   </select>
 
   <select id="selectByName" resultMap="basicMap" parameterType="java.lang.String">
