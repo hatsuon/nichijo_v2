@@ -17,7 +17,6 @@
 package org.cadmium.nichijo.controller.admin;
 
 import lombok.extern.slf4j.Slf4j;
-import org.cadmium.nichijo.common.constant.WebPath;
 import org.cadmium.nichijo.entity.User;
 import org.cadmium.nichijo.entity.dto.LoginDto;
 import org.cadmium.nichijo.service.UserService;
@@ -35,7 +34,11 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
-
+    
+    private final String REDIRECT_ADMIN = "redirect:/admin";
+    private final String ADMIN_INDEX = "/admin/index";
+    private final String ADMIN_LOGIN = "/admin/login";
+    
     @Autowired
     private UserService userService;
 
@@ -43,9 +46,9 @@ public class LoginController {
     @GetMapping
     public String login(HttpSession session) {
         if (session.getAttribute("user") != null) {
-            return "admin/index";
+            return ADMIN_INDEX;
         }
-        return WebPath.ADMIN_LOGIN;
+        return ADMIN_LOGIN;
     }
 
     
@@ -54,17 +57,17 @@ public class LoginController {
         User result = userService.find(dto);
         if (Objects.isNull(result)) {
             attributes.addFlashAttribute("message", "登陆失败, 用户不存在!");
-            return "redirect:/admin";
+            return REDIRECT_ADMIN;
         }
         session.setAttribute("user", result);
-        return "/admin/index";
+        return ADMIN_INDEX;
     }
 
     
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
-        return "redirect:/admin";
+        return REDIRECT_ADMIN;
     }
 
 }
