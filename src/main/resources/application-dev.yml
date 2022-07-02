@@ -6,12 +6,12 @@ spring:
     name: nichijo_dev
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mariadb://10.42.0.10:3306/db_nichijo_v2
+    url: jdbc:mysql://10.42.0.10:3306/db_nichijo_v2
     username: root
     password: ^H,DcSO9kl%
 
   redis:
-    host: 10.42.0.20
+    host: 10.42.0.10
     port: 6379
     database: 0
     password: ^H,DcSO9kl%
