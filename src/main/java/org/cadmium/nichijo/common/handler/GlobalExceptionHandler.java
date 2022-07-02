@@ -17,8 +17,10 @@
 package org.cadmium.nichijo.common.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +32,12 @@ import java.util.Date;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConnectException.class)
-    public ModelAndView sqlExceptionHandler(Exception e, HttpServletRequest request) {
+    public ModelAndView sqlExceptionHandler(Exception e, HttpServletRequest request) throws Exception {
+        
+        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
+            throw e;
+        }
+        
         log.error("Database connection timeout! {} ", new Date());
     
         ModelAndView mv = new ModelAndView();

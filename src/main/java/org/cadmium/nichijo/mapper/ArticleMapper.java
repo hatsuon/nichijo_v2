@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package org.cadmium.nichijo.service;
+package org.cadmium.nichijo.mapper;
 
-import com.github.pagehelper.PageInfo;
-import org.cadmium.nichijo.entity.Tag;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.cadmium.nichijo.entity.Article;
 
-public interface TagService {
+import java.util.List;
+
+@Mapper
+public interface ArticleMapper {
     
-    Integer PAGE_SIZE = 4;
+    List<Article> list();
     
-    Tag get(Integer id);
-
-    int save(Tag tag);
-
-    int update(Tag tag);
-
-    int delete(Integer id);
+    Article selectByPrimary(@Param("id") Integer id);
     
-    boolean isExist(String tagName);
-
-    PageInfo<Tag> tagPage(Integer pageNum);
-
+    int insertOne(Article article);
+    
+    int updateOne(Article article);
+    
+    int deleteByPrimary(Integer id);
 }

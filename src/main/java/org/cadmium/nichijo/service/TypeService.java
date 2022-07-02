@@ -22,8 +22,11 @@ import org.cadmium.nichijo.entity.Type;
 import java.util.List;
 
 public interface TypeService {
+    
     Integer PAGE_SIZE = 4;
-
+    
+    List<Type> list();
+    
     int save(Type type);
 
     int delete(Integer id);
@@ -31,8 +34,9 @@ public interface TypeService {
     int update(Type type);
 
     Type get(Integer id);
+    
     PageInfo<Type> typePage(Integer pageNum);
     
     boolean isExist(String typeName);
-
+    
 }

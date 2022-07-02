@@ -17,22 +17,20 @@
 package org.cadmium.nichijo.service;
 
 import com.github.pagehelper.PageInfo;
-import org.cadmium.nichijo.entity.Tag;
+import org.cadmium.nichijo.entity.Article;
 
-public interface TagService {
+public interface ArticleService {
     
     Integer PAGE_SIZE = 4;
     
-    Tag get(Integer id);
-
-    int save(Tag tag);
-
-    int update(Tag tag);
-
+    Article get(Integer id);
+    
+    int save(Article article);
+    
+    int update(Article article);
+    
     int delete(Integer id);
     
-    boolean isExist(String tagName);
-
-    PageInfo<Tag> tagPage(Integer pageNum);
-
+    PageInfo<Article> articlePage(Integer pageNum);
+    
 }

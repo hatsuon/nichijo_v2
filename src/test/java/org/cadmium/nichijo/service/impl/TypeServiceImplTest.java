@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -34,4 +36,12 @@ class TypeServiceImplTest {
         System.out.println(result);
     }
     
+    
+    @Test
+    void testTypeList() {
+        List<Type> result = typeService.list();
+        
+        assert result != null;
+        System.out.println(result);
+    }
 }

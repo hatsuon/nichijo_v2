@@ -43,8 +43,6 @@ import static org.cadmium.nichijo.common.constant.Prefix.CACHE_TAG_PAGE;
 @Service
 public class TagServiceImpl implements TagService {
     
-    final private Integer PAGE_SIZE = 4;
-    
     @Autowired
     private Gson gson;
     @Autowired

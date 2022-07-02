@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-package org.cadmium.nichijo.common.constant;
+package org.cadmium.nichijo.controller.admin;
 
-public interface WebPath {
+import lombok.extern.slf4j.Slf4j;
+import org.cadmium.nichijo.service.TagService;
+import org.cadmium.nichijo.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-    String ADMIN_LOGIN = "admin/login";
-
+@Slf4j
+@Controller
+@RequestMapping("/admin/articles")
+public class ArticleController {
+    
+    @Autowired
+    private TagService tagService;
+    @Autowired
+    private TypeService typeService;
+    
 }

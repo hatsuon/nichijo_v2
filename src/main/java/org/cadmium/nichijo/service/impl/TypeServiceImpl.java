@@ -32,8 +32,10 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.cadmium.nichijo.common.constant.CacheTTL.TTL;
 import static org.cadmium.nichijo.common.constant.CacheTTL.TYPE_TOTAL;
 import static org.cadmium.nichijo.common.constant.Prefix.*;
 
@@ -67,6 +69,7 @@ public class TypeServiceImpl implements TypeService {
         Integer result = Try.of(() -> typeMapper.deleteByPrimary(id))
             .andThenTry(() -> redisTemplate.opsForValue().get(CACHE_TYPE + id))
             .andThen(ok -> redisTemplate.delete(CACHE_TYPE + id))
+            .andThen(this::clean)
             .andThen(ok -> log.info("Clean type cache {} ", id))
             .get();
 
@@ -127,9 +130,29 @@ public class TypeServiceImpl implements TypeService {
         return result;
     }
     
+    
     @Override
     public boolean isExist(String typeName) {
         return typeMapper.selectByName(typeName) != null;
+    }
+    
+    
+    @Override
+    public List<Type> list() {
+    
+        String json = redisTemplate.opsForValue().get(CACHE_TYPE_LIST);
+        if (!StringUtils.isEmpty(json)) {
+            log.info("Type list from cache {}", new Date());
+            return gson.fromJson(json, new TypeToken<List<Type>>() {}.getType());
+        }
+        
+        List<Type> result = typeMapper.list();
+        json = gson.toJson(result);
+        redisTemplate.opsForValue()
+            .set(CACHE_TYPE_LIST, json, TTL, TimeUnit.MILLISECONDS);
+        log.info("Type list cache to redis {} ", new Date());
+        
+        return result;
     }
     
     
@@ -138,6 +161,7 @@ public class TypeServiceImpl implements TypeService {
             .andThen(r -> redisTemplate.delete(r));
     }
 
+    
     private <E> void cache(String key, E value, long ttl) {
         redisTemplate.opsForValue()
             .set(key, this.gson.toJson(value), ttl, TimeUnit.MILLISECONDS);

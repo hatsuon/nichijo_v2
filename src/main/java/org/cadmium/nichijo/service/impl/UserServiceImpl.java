@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(LoginDto dto) {
-
         String json = redisTemplate.opsForValue()
                 .get(CACHE_USER + Md5Utils.encrypt(dto.getUsername()));
         if (!StringUtils.isEmpty(json)) {
@@ -63,10 +62,10 @@ public class UserServiceImpl implements UserService {
 
         return result;
     }
+    
 
     @Override
     public void clean(String username) {
-
         String suffix = Md5Utils.encrypt(username);
 
         String json = redisTemplate.opsForValue()

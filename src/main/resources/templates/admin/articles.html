@@ -15,7 +15,7 @@
   -->
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin/_fragments :: head(~{::title})">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     <div class="ui inverted secondary stackable menu">
       <h2 class="ui teal header item">管理后台</h2>
       <a href="#" class="active m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
-      <a href="#" class=" m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+      <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
       <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
       <div class="right m-item m-mobile-hide menu">
         <div class="ui dropdown  item">
@@ -53,8 +53,8 @@
 <div class="ui attached pointing menu">
   <div class="ui container">
     <div class="right menu">
-      <a href="#" th:href="@{/admin/blogs/input}" class=" item">发布</a>
-      <a href="#" th:href="@{/admin/blogs}" class="teal active item">列表</a>
+      <a href="#" th:href="@{/admin/articles/input}" class=" item">发布</a>
+      <a href="#" th:href="@{/admin/articles}" class="teal active item">列表</a>
     </div>
   </div>
 </div>
@@ -115,9 +115,9 @@
           <td th:text="${iterStat.count}">1</td>
           <td th:text="${blog.title}">刻意练习清单</td>
           <td th:text="${blog.typeName}">认知升级</td>
-          <td th:text="${blog.recommend} ? '是':'否'">是</td>
-          <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
-          <td th:text="${blog.updatedTime}">2017-10-02 09:45</td>
+          <td th:text="${blog.isRecommend} ? '是':'否'">是</td>
+          <td th:text="${blog.isDraft} ? '发布':'草稿'">草稿</td>
+          <td th:text="${blog.gmtUpdated}">2017-10-02 09:45</td>
           <td>
             <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
             <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>

@@ -34,20 +34,22 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/admin/types")
 public class TypeController {
-
+    
+    private final String ADMIN_TYPES = "/admin/types";
+    private final String ADMIN_TYPES_INPUT = "/admin/types-input";
+    private final String REDIRECT_ADMIN_TYPES = "redirect:/admin/types";
+    
     @Autowired
     private TypeService typeService;
 
 
     @GetMapping
     public String type(@RequestParam(defaultValue = "1") Integer pageNum, Model model) {
-
         PageInfo<Type> result = typeService.typePage(pageNum);
-
         if (result != null) {
             model.addAttribute("page", result);
         }
-        return "admin/types";
+        return ADMIN_TYPES;
     }
 
     @GetMapping("/{id}/input")
@@ -56,32 +58,34 @@ public class TypeController {
 
         if (result != null) {
             model.addAttribute("type", result);
+        } else {
+            model.addAttribute("type", new Type());
         }
 
-        return "admin/types-input";
+        return ADMIN_TYPES_INPUT;
     }
 
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") Integer typeId) {
         int result = typeService.delete(typeId);
-        return "redirect:/admin/types";
+        return REDIRECT_ADMIN_TYPES;
     }
 
     @GetMapping("/input")
     public String input(Model model) {
         model.addAttribute("type", new Type());
-        return "admin/types-input";
+        return ADMIN_TYPES_INPUT;
     }
 
     @PostMapping
     public String save(Type type, RedirectAttributes attributes) {
-        
         if (type == null) {
             attributes.addFlashAttribute("message", "输入不能为空😠!");
+            return REDIRECT_ADMIN_TYPES;
         }
     
-        if (!typeService.isExist(type.getName())) {
+        if (!exist(type.getName())) {
             if (typeService.save(type) > 0) {
                 attributes.addFlashAttribute("message", "添加成功😄!");
             } else {
@@ -92,7 +96,7 @@ public class TypeController {
         }
     
     
-        return "redirect:/admin/types";
+        return REDIRECT_ADMIN_TYPES;
     }
 
 
@@ -100,9 +104,10 @@ public class TypeController {
     public String editor(@PathVariable("id") Integer id, Type type, RedirectAttributes attributes) {
         if (type == null) {
             attributes.addFlashAttribute("message", "输入不能为空😠!");
+            return REDIRECT_ADMIN_TYPES;
         }
     
-        if (!typeService.isExist(type.getName())) {
+        if (!exist(type.getName())) {
             if (typeService.update(type) > 0) {
                 attributes.addFlashAttribute("message", "添加成功😄!");
             } else {
@@ -112,8 +117,12 @@ public class TypeController {
             attributes.addFlashAttribute("message", "项目已经存在😓!");
         }
         
-        
-        return "redirect:/admin/types";
+        return REDIRECT_ADMIN_TYPES;
+    }
+    
+    
+    private boolean exist(String name) {
+        return typeService.isExist(name);
     }
 
 }

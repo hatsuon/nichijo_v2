@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package org.cadmium.nichijo.service;
+package org.cadmium.nichijo.utils;
 
-import com.github.pagehelper.PageInfo;
-import org.cadmium.nichijo.entity.Tag;
+import org.junit.jupiter.api.Test;
 
-public interface TagService {
+import static org.junit.jupiter.api.Assertions.*;
+
+class ImgUtilsTest {
     
-    Integer PAGE_SIZE = 4;
+    @Test
+    void testImageToString() {
+        String result = ImgUtils.toBase64("/Users/xiangkunxu/Downloads/a.jpeg");
     
-    Tag get(Integer id);
-
-    int save(Tag tag);
-
-    int update(Tag tag);
-
-    int delete(Integer id);
+        assert !result.equals("");
+        System.out.println(result);
+    }
     
-    boolean isExist(String tagName);
-
-    PageInfo<Tag> tagPage(Integer pageNum);
-
 }

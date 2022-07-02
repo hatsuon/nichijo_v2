@@ -17,7 +17,6 @@
 package org.cadmium.nichijo.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
 import org.cadmium.nichijo.entity.Tag;
 import org.cadmium.nichijo.service.TagService;
@@ -32,6 +31,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/admin/tags")
 public class TagController {
     
+    private final String ADMIN_TAGS = "/admin/tags";
+    private final String ADMIN_TAGS_INPUT = "/admin/tags-input";
+    private final String REDIRECT_ADMIN_TAGS = "redirect:/admin/tags";
+    
     @Autowired
     private TagService tagService;
     
@@ -42,14 +45,14 @@ public class TagController {
         if (result != null) {
             model.addAttribute("page", result);
         }
-        return "admin/tags";
+        return ADMIN_TAGS;
     }
     
     
     @GetMapping("/input")
     public String input(Model model) {
         model.addAttribute("tag", new Tag());
-        return "admin/tags-input";
+        return ADMIN_TAGS_INPUT;
     }
     
     
@@ -57,7 +60,7 @@ public class TagController {
     public String save(Tag tag, RedirectAttributes attributes) {
         if (tag == null) {
             attributes.addFlashAttribute("message", "输入不能为空😠!");
-            return "admin/tags";
+            return ADMIN_TAGS;
         }
         
         if (!tagService.isExist(tag.getName())) {
@@ -69,7 +72,7 @@ public class TagController {
         } else {
             attributes.addFlashAttribute("message", "项目已经存在😓!");
         }
-        return "redirect:/admin/tags";
+        return REDIRECT_ADMIN_TAGS;
     }
     
     
@@ -78,7 +81,7 @@ public class TagController {
     
         if (tag == null) {
             attributes.addFlashAttribute("message", "输入不能为空😠!");
-            return "redirect:/admin/tags";
+            return REDIRECT_ADMIN_TAGS;
         }
         
         if (!tagService.isExist(tag.getName())) {
@@ -91,7 +94,7 @@ public class TagController {
             attributes.addFlashAttribute("message", "项目已经存在😓!");
         }
         
-        return "redirect:/admin/tags";
+        return REDIRECT_ADMIN_TAGS;
     }
     
     
@@ -100,7 +103,7 @@ public class TagController {
         if (tagService.delete(id) > 0) {
             attributes.addFlashAttribute("message", "删除成功!");
         }
-        return "redirect:/admin/tags";
+        return REDIRECT_ADMIN_TAGS;
     }
     
     
@@ -114,7 +117,7 @@ public class TagController {
             attributes.addFlashAttribute("message", "Tag标签不存在!");
         }
     
-        return "admin/tags-input";
+        return ADMIN_TAGS_INPUT;
     }
     
 }
