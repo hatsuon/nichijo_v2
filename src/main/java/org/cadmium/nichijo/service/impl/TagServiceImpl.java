@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +63,7 @@ public class TagServiceImpl implements TagService {
     
         String json = redisTemplate.opsForValue().get(CACHE_TAG + id);
         if (!StringUtils.isEmpty(json)) {
-            log.info("Tag from cache");
+            log.info("Tag from cache {} ", new Date());
             return gson.fromJson(json, Tag.class);
         }
     
@@ -79,6 +80,7 @@ public class TagServiceImpl implements TagService {
     public int save(Tag tag) {
         Integer result = Try.of(() -> tagMapper.insertOne(tag))
             .andThen(this::clean)
+            .andThen(r -> log.info("Clean tag page cache {}", new Date()))
             .get();
         return result;
     }
@@ -90,6 +92,7 @@ public class TagServiceImpl implements TagService {
             .andThen(this::clean)
             .andThen(r -> redisTemplate.opsForValue().get(CACHE_TAG + tag.getId()))
             .andThen(r -> redisTemplate.delete(CACHE_TAG + tag.getId()))
+            .andThen(r -> log.info("Clean Tag page cache {} ", new Date()))
             .get();
         return result;
     }
@@ -101,6 +104,7 @@ public class TagServiceImpl implements TagService {
             .andThen(this::clean)
             .andThen(r -> redisTemplate.opsForValue().get(CACHE_TAG + id))
             .andThen(r -> redisTemplate.delete(CACHE_TAG + id))
+            .andThen(r -> log.info("Clean Tag page cache {} ", new Date()))
             .get();
         return result;
     }
@@ -121,6 +125,7 @@ public class TagServiceImpl implements TagService {
         redisTemplate.opsForValue()
             .set(CACHE_TAG_PAGE + pageNum, json, TAG_TOTAL, TimeUnit.MILLISECONDS);
         
+        log.info("Page cache to redis {} ", new Date());
         return result;
     }
     
